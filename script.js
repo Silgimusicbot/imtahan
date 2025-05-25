@@ -5,7 +5,10 @@ const minutesEl = document.getElementById('minutes');
 const secondsEl = document.getElementById('seconds');
 const counterEl = document.getElementById('counter');
 const audio = document.getElementById('audio');
-const volumeControl = document.getElementById('volumeControl');
+const muteBtn = document.getElementById('muteBtn');
+const seekBar = document.getElementById('seekBar');
+const currentTimeEl = document.getElementById('currentTime');
+const durationEl = document.getElementById('duration');
 
 let views = 0;
 
@@ -27,10 +30,16 @@ function updateTimer() {
   const minutes = Math.floor((diff / (1000 * 60)) % 60);
   const seconds = Math.floor((diff / 1000) % 60);
 
-  daysEl.textContent = days.toString().padStart(2, '0');
-  hoursEl.textContent = hours.toString().padStart(2, '0');
-  minutesEl.textContent = minutes.toString().padStart(2, '0');
-  secondsEl.textContent = seconds.toString().padStart(2, '0');
+  daysEl.textContent = String(days).padStart(2, '0');
+  hoursEl.textContent = String(hours).padStart(2, '0');
+  minutesEl.textContent = String(minutes).padStart(2, '0');
+  secondsEl.textContent = String(seconds).padStart(2, '0');
+}
+
+function formatTime(seconds) {
+  const m = Math.floor(seconds / 60);
+  const s = Math.floor(seconds % 60);
+  return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
 }
 
 function incrementViews() {
@@ -38,8 +47,24 @@ function incrementViews() {
   counterEl.textContent = views;
 }
 
-volumeControl.addEventListener('input', (e) => {
-  audio.volume = e.target.value;
+audio.addEventListener('loadedmetadata', () => {
+  seekBar.max = Math.floor(audio.duration);
+  durationEl.textContent = formatTime(audio.duration);
+});
+
+audio.addEventListener('timeupdate', () => {
+  seekBar.value = Math.floor(audio.currentTime);
+  currentTimeEl.textContent = formatTime(audio.currentTime);
+});
+
+seekBar.addEventListener('input', () => {
+  audio.currentTime = seekBar.value;
+});
+
+muteBtn.addEventListener('click', () => {
+  audio.muted = !audio.muted;
+  muteBtn.textContent = audio.muted ? '🔈' : '🔊';
+  muteBtn.title = audio.muted ? 'Səsi aç' : 'Səsi bağla';
 });
 
 updateTimer();
