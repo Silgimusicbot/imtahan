@@ -34,18 +34,19 @@ body {
   display: flex;
   justify-content: center;
   gap: 10px;
+  flex-wrap: wrap;
 }
 
 .time-box {
   background: rgba(255, 255, 255, 0.1);
   padding: 15px;
   border-radius: 10px;
-  width: 30%;
+  width: 80px;
   text-align: center;
 }
 
 .time-box.full-width {
-  width: 100%;
+  width: 260px;
 }
 
 .time-box span {
@@ -56,9 +57,9 @@ body {
 .music-player {
   display: flex;
   align-items: center;
-  justify-content: center;
   gap: 10px;
   flex-wrap: wrap;
+  justify-content: center;
   margin-bottom: 20px;
 }
 
@@ -72,6 +73,7 @@ body {
 .song-info {
   flex: 1;
   min-width: 200px;
+  max-width: 300px;
 }
 
 .status-bar {
