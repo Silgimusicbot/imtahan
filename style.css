@@ -25,10 +25,15 @@ body {
 
 .timer {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   gap: 10px;
-  justify-content: center;
   margin-bottom: 30px;
+}
+
+.time-row {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
 }
 
 .time-box {
