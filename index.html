@@ -5,10 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Blok İmtahanına Qalan Vaxt</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <script type="module" src="script.js" defer></script>
 </head>
 <body>
   <div class="overlay">
     <h1>📖 Blok İmtahanına<br>Qalan Vaxt</h1>
+
     <div class="timer">
       <div><span id="days">00</span><label>gün</label></div>
       <div><span id="hours">00</span><label>saat</label></div>
@@ -20,18 +23,23 @@
       <img src="song.jpg" alt="Mahnı şəkli" class="song-image">
       <div class="song-info">
         <h2>Skyfall - Adele</h2>
+        <div class="audio-controls">
+          <button id="playPauseBtn"><i class="fas fa-play"></i></button>
+          <button id="muteBtn"><i class="fas fa-volume-up"></i></button>
+          <span id="currentTime">00:00</span>
+          <input type="range" id="seekBar" value="0" min="0">
+          <span id="duration">00:00</span>
+        </div>
       </div>
-      <audio id="audio" controls>
+      <audio id="audio">
         <source src="mahni.mp3" type="audio/mpeg">
-        Brauzer audio dəstəkləmir.
+        Brauzeriniz audio dəstəkləmir.
       </audio>
     </div>
 
     <div class="counter">
-      👁️ Baxış: <span id="counter">0</span>
+      👁️ Baxış sayı: <span id="counter">0</span>
     </div>
   </div>
-
-  <script type="module" src="script.js"></script>
 </body>
 </html>
