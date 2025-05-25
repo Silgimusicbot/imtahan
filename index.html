@@ -6,24 +6,23 @@
   <title>Blok İmtahanına Qalan Vaxt</title>
   <link rel="stylesheet" href="style.css" />
   <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
 </head>
 <body>
-  <div class="container">
-    <h1 class="fade-in">📖 Blok İmtahanına Qalan Vaxt</h1>
-    <div class="timer fade-in">
-      <div><span id="days">00</span><label>gün</label></div>
-      <div><span id="hours">00</span><label>saat</label></div>
-      <div><span id="minutes">00</span><label>dəqiqə</label></div>
-      <div><span id="seconds">00</span><label>saniyə</label></div>
+  <div class="overlay">
+    <h1 class="title">📖 Blok İmtahanına Qalan Vaxt</h1>
+
+    <div class="timer">
+      <div class="time-box"><span id="days">00</span><label>gün</label></div>
+      <div class="time-box"><span id="hours">00</span><label>saat</label></div>
+      <div class="time-box"><span id="minutes">00</span><label>dəqiqə</label></div>
+      <div class="time-box full-width"><span id="seconds">00</span><label>saniyə</label></div>
     </div>
 
-    <div class="music-player fade-in">
+    <div class="music-player">
       <img src="song.jpg" alt="Mahnı şəkli" class="song-image" />
       <div class="song-info">
         <h2>Skyfall - Adele</h2>
-        <div class="time-info">
+        <div class="status-bar">
           <span id="currentTime">00:00</span>
           <input type="range" id="seekBar" value="0" />
           <span id="duration">00:00</span>
@@ -32,18 +31,16 @@
           <button id="playPauseBtn"><i class="fas fa-play"></i></button>
           <button id="muteBtn"><i class="fas fa-volume-up"></i></button>
         </div>
-        <audio id="audio">
-          <source src="mahni.mp3" type="audio/mpeg" />
-          Sənin brauzerin audio pleyeri dəstəkləmir.
-        </audio>
       </div>
     </div>
 
-    <div class="counter fade-in">
+    <div class="counter">
       👁️ Baxış sayı: <span id="counter">0</span>
     </div>
   </div>
 
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
