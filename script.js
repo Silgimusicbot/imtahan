@@ -1,3 +1,18 @@
+const firebaseConfig = {
+  apiKey: "AIzaSyBP2WHQAtSboDcKDUWqhRx3s_AVAf4YCF4",
+  authDomain: "imtahan-taymeri.firebaseapp.com",
+  projectId: "imtahan-taymeri",
+  storageBucket: "imtahan-taymeri.appspot.com",
+  messagingSenderId: "425403681235",
+  appId: "1:425403681235:web:0ee4cdc852f6e12ad40726",
+  measurementId: "G-RS9450CC6E",
+  databaseURL: "https://imtahan-taymeri-default-rtdb.firebaseio.com"
+};
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+const counterRef = db.ref("views");
+
 const targetDate = new Date('2025-06-01T09:30:00');
 const daysEl = document.getElementById('days');
 const hoursEl = document.getElementById('hours');
@@ -12,23 +27,6 @@ const seekBar = document.getElementById('seekBar');
 const currentTimeEl = document.getElementById('currentTime');
 const durationEl = document.getElementById('duration');
 
-// Firebase konfiqurasiyası
-const firebaseConfig = {
-  apiKey: "AIzaSyBP2WHQAtSboDcKDUWqhRx3s_AVAf4YCF4",
-  authDomain: "imtahan-taymeri.firebaseapp.com",
-  databaseURL: "https://imtahan-taymeri-default-rtdb.firebaseio.com",
-  projectId: "imtahan-taymeri",
-  storageBucket: "imtahan-taymeri.appspot.com",
-  messagingSenderId: "425403681235",
-  appId: "1:425403681235:web:0ee4cdc852f6e12ad40726",
-  measurementId: "G-RS9450CC6E"
-};
-
-firebase.initializeApp(firebaseConfig);
-const db = firebase.database();
-const counterRef = db.ref('counter');
-
-// Timer funksiyası
 function updateTimer() {
   const now = new Date();
   const diff = targetDate - now;
@@ -53,7 +51,6 @@ function updateTimer() {
   secondsEl.textContent = String(seconds).padStart(2, '0');
 }
 
-// Audio funksiyaları
 function formatTime(seconds) {
   const m = Math.floor(seconds / 60);
   const s = Math.floor(seconds % 60);
@@ -65,7 +62,7 @@ function setAudioDuration() {
     seekBar.max = Math.floor(audio.duration);
     durationEl.textContent = formatTime(audio.duration);
   } else {
-    setTimeout(setAudioDuration, 500); // Retry
+    setTimeout(setAudioDuration, 500);
   }
 }
 
@@ -97,12 +94,11 @@ muteBtn.addEventListener('click', () => {
     : '<i class="fas fa-volume-up"></i>';
 });
 
-// Baxış sayğacını artır
+// Firebase baxış sayını artır və göstər
 counterRef.transaction(current => (current || 0) + 1);
-counterRef.on('value', snapshot => {
-  counterEl.textContent = snapshot.val();
+counterRef.on("value", snapshot => {
+  counterEl.textContent = snapshot.val() || 0;
 });
 
-// Başlat
 updateTimer();
 const timerInterval = setInterval(updateTimer, 1000);
