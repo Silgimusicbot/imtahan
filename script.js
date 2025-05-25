@@ -4,7 +4,9 @@ const hoursEl = document.getElementById('hours');
 const minutesEl = document.getElementById('minutes');
 const secondsEl = document.getElementById('seconds');
 const counterEl = document.getElementById('counter');
+
 const audio = document.getElementById('audio');
+const playPauseBtn = document.getElementById('playPauseBtn');
 const muteBtn = document.getElementById('muteBtn');
 const seekBar = document.getElementById('seekBar');
 const currentTimeEl = document.getElementById('currentTime');
@@ -61,10 +63,21 @@ seekBar.addEventListener('input', () => {
   audio.currentTime = seekBar.value;
 });
 
+playPauseBtn.addEventListener('click', () => {
+  if (audio.paused) {
+    audio.play();
+    playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
+  } else {
+    audio.pause();
+    playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
+  }
+});
+
 muteBtn.addEventListener('click', () => {
   audio.muted = !audio.muted;
-  muteBtn.textContent = audio.muted ? '🔈' : '🔊';
-  muteBtn.title = audio.muted ? 'Səsi aç' : 'Səsi bağla';
+  muteBtn.innerHTML = audio.muted
+    ? '<i class="fas fa-volume-mute"></i>'
+    : '<i class="fas fa-volume-up"></i>';
 });
 
 updateTimer();
