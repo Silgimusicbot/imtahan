@@ -1,6 +1,5 @@
 body {
   margin: 0;
-  padding: 0;
   font-family: sans-serif;
   background: url('background.jpg') no-repeat center center fixed;
   background-size: cover;
@@ -9,47 +8,24 @@ body {
 
 .overlay {
   background-color: rgba(0, 0, 0, 0.6);
-  min-height: 100vh;
   padding: 20px;
-  box-sizing: border-box;
   text-align: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
 }
 
-.title {
-  margin-bottom: 20px;
-  font-size: 1.5em;
-}
-
-.timer {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-bottom: 30px;
-}
-
-.time-row {
+.timer .top-row, .timer .bottom-row {
   display: flex;
   justify-content: center;
   gap: 10px;
-  flex-wrap: wrap;
 }
 
-.time-box {
-  background: rgba(255, 255, 255, 0.1);
-  padding: 15px;
+.timer div {
+  background: #222;
+  padding: 10px 20px;
   border-radius: 10px;
-  width: 80px;
-  text-align: center;
+  margin: 5px 0;
 }
 
-.time-box.full-width {
-  width: 260px;
-}
-
-.time-box span {
+.timer span {
   font-size: 2em;
   display: block;
 }
@@ -57,56 +33,82 @@ body {
 .music-player {
   display: flex;
   align-items: center;
-  gap: 10px;
-  flex-wrap: wrap;
   justify-content: center;
-  margin-bottom: 20px;
+  background: #111;
+  border-radius: 15px;
+  margin-top: 20px;
+  padding: 10px;
+  max-width: 350px;
+  margin-left: auto;
+  margin-right: auto;
+  flex-wrap: wrap;
 }
 
 .song-image {
   width: 60px;
   height: 60px;
   border-radius: 10px;
-  object-fit: cover;
+  margin-right: 10px;
 }
 
 .song-info {
   flex: 1;
-  min-width: 200px;
-  max-width: 300px;
+  text-align: left;
 }
 
-.status-bar {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  font-size: 0.9em;
+.song-info h2 {
+  font-size: 16px;
+  margin: 0;
 }
 
 #seekBar {
-  flex: 1;
-  appearance: none;
-  height: 5px;
-  background: white;
-  border-radius: 5px;
+  width: 100%;
+  margin-top: 5px;
 }
 
-.controls {
-  margin-top: 10px;
+.time-info {
   display: flex;
-  gap: 10px;
-  justify-content: center;
+  justify-content: space-between;
+  font-size: 12px;
 }
 
-.controls button {
+.buttons {
+  margin-top: 5px;
+}
+
+.buttons button {
   background: none;
   border: none;
   color: white;
-  font-size: 1.2em;
+  font-size: 18px;
+  margin-right: 10px;
   cursor: pointer;
 }
 
 .counter {
-  margin-top: 10px;
-  font-size: 1.2em;
+  margin-top: 20px;
+  font-size: 20px;
+}
+
+/* Mobil uyğunluq */
+@media screen and (max-width: 600px) {
+  .timer .top-row {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .music-player {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .song-image {
+    margin: 0 auto 10px;
+  }
+
+  .song-info {
+    text-align: center;
+    width: 100%;
+  }
 }
