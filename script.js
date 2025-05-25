@@ -3,7 +3,7 @@ const daysEl = document.getElementById('days');
 const hoursEl = document.getElementById('hours');
 const minutesEl = document.getElementById('minutes');
 const secondsEl = document.getElementById('seconds');
-const counterEl = document.getElementById('counter');
+const creditEl = document.getElementById('creditText');
 
 const audio = document.getElementById('audio');
 const playPauseBtn = document.getElementById('playPauseBtn');
@@ -11,8 +11,6 @@ const muteBtn = document.getElementById('muteBtn');
 const seekBar = document.getElementById('seekBar');
 const currentTimeEl = document.getElementById('currentTime');
 const durationEl = document.getElementById('duration');
-
-let views = 0;
 
 function updateTimer() {
   const now = new Date();
@@ -42,11 +40,6 @@ function formatTime(seconds) {
   const m = Math.floor(seconds / 60);
   const s = Math.floor(seconds % 60);
   return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
-}
-
-function incrementViews() {
-  views++;
-  counterEl.textContent = views;
 }
 
 audio.addEventListener('loadedmetadata', () => {
@@ -80,6 +73,49 @@ muteBtn.addEventListener('click', () => {
     : '<i class="fas fa-volume-up"></i>';
 });
 
+// Animasiya funksiyası
+function animateElements() {
+  const elements = [
+    document.querySelector('.credit'),
+    document.querySelector('h1'),
+    document.querySelector('.timer'),
+    document.querySelector('.music-player')
+  ];
+
+  elements.forEach((el, i) => {
+    setTimeout(() => {
+      el.classList.add('fade-in');
+    }, i * 300);
+  });
+}
+
+function typeTextEffect(el, text, speed = 60) {
+  let display = '';
+  let index = 0;
+  const interval = setInterval(() => {
+    display = text.substring(0, index);
+    el.textContent = display + getRandomLetters(text.length - index);
+    index++;
+    if (index > text.length) {
+      clearInterval(interval);
+      el.textContent = text;
+    }
+  }, speed);
+}
+
+function getRandomLetters(count) {
+  const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  let str = '';
+  for (let i = 0; i < count; i++) {
+    str += letters.charAt(Math.floor(Math.random() * letters.length));
+  }
+  return str;
+}
+
 updateTimer();
 const timerInterval = setInterval(updateTimer, 1000);
-incrementViews();
+
+window.addEventListener('DOMContentLoaded', () => {
+  typeTextEffect(creditEl, 'Hüseyn Məmmədov tərəfindən hazırlanıb');
+  animateElements();
+});
