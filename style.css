@@ -45,7 +45,9 @@ h1 {
     font-size: 28px;
     font-weight: bold;
 }
-
+.counter {
+    margin-top: 20px;
+}
 .label {
     font-size: 14px;
     margin-top: 5px;
