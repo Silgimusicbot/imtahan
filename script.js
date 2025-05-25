@@ -54,7 +54,9 @@ function setAudioDuration() {
 }
 
 function incrementViews() {
-  views++;
+  let views = localStorage.getItem('viewCount');
+  views = views ? parseInt(views) + 1 : 1;
+  localStorage.setItem('viewCount', views);
   counterEl.textContent = views;
 }
 
