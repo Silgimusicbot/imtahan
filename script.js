@@ -19,12 +19,10 @@ const firebaseConfig = {
   measurementId: "G-RS9450CC6E"
 };
 
-// Firebase başlat
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const counterRef = doc(db, "sayac", "sayacDoc");
 
-// Sayğacı artır və göstər
 async function updateCounter() {
   try {
     await updateDoc(counterRef, { count: increment(1) });
@@ -71,7 +69,7 @@ function updateTimer() {
 updateTimer();
 const timerInterval = setInterval(updateTimer, 1000);
 
-// Audio funksionallıq
+// Audio
 const audio = document.getElementById('audio');
 const playPauseBtn = document.getElementById('playPauseBtn');
 const muteBtn = document.getElementById('muteBtn');
@@ -93,7 +91,6 @@ function setAudioDuration() {
     setTimeout(setAudioDuration, 500);
   }
 }
-
 audio.addEventListener('loadedmetadata', setAudioDuration);
 
 audio.addEventListener('timeupdate', () => {
