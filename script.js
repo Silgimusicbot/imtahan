@@ -1,24 +1,29 @@
-const targetDate = new Date("2025-06-01T09:30:00");
+const targetDate = new Date("2025-06-01T09:30:00").getTime();
+const counter = document.getElementById("counter");
 
-function updateTimer() {
-    const now = new Date();
-    const diff = targetDate - now;
 
-    if (diff <= 0) {
-        document.getElementById("timer").innerHTML = "<h2>İmtahan başladı! Uğurlar! 🎉</h2>";
-        return;
-    }
+let views = localStorage.getItem("visitCount");
+if (!views) {
+  views = 1;
+} else {
+  views = parseInt(views) + 1;
+}
+localStorage.setItem("visitCount", views);
+counter.textContent = views;
+function updateCountdown() {
+  const now = new Date().getTime();
+  const distance = targetDate - now;
 
-    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-    const minutes = Math.floor((diff / (1000 * 60)) % 60);
-    const seconds = Math.floor((diff / 1000) % 60);
+  const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((distance / (1000 * 60 * 60)) % 24);
+  const minutes = Math.floor((distance / (1000 * 60)) % 60);
+  const seconds = Math.floor((distance / 1000) % 60);
 
-    document.getElementById("days").textContent = days;
-    document.getElementById("hours").textContent = hours;
-    document.getElementById("minutes").textContent = minutes;
-    document.getElementById("seconds").textContent = seconds;
+  document.getElementById("days").textContent = String(days).padStart(2, '0');
+  document.getElementById("hours").textContent = String(hours).padStart(2, '0');
+  document.getElementById("minutes").textContent = String(minutes).padStart(2, '0');
+  document.getElementById("seconds").textContent = String(seconds).padStart(2, '0');
 }
 
-updateTimer();
-setInterval(updateTimer, 1000);
+setInterval(updateCountdown, 1000);
+updateCountdown();
