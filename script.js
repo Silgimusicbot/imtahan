@@ -13,35 +13,28 @@ const firebaseConfig = {
   apiKey: "AIzaSyBP2WHQAtSboDcKDUWqhRx3s_AVAf4YCF4",
   authDomain: "imtahan-taymeri.firebaseapp.com",
   projectId: "imtahan-taymeri",
-  storageBucket: "imtahan-taymeri.firebasestorage.app",
+  storageBucket: "imtahan-taymeri.appspot.com",
   messagingSenderId: "425403681235",
   appId: "1:425403681235:web:0ee4cdc852f6e12ad40726",
-  measurementId: "G-RS9450CC6E"
 };
 
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-const counterRef = doc(db, "sayac", "sayacDoc");
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+const counterRef = db.ref('views');
 
-async function updateCounter() {
-  try {
-    await updateDoc(counterRef, { count: increment(1) });
-  } catch {
-    await setDoc(counterRef, { count: 1 });
-  }
-  const snap = await getDoc(counterRef);
-  if (snap.exists()) {
-    document.getElementById("counter").textContent = snap.data().count;
-  }
-}
-updateCounter();
-
-// Taymer
 const targetDate = new Date('2025-06-01T09:30:00');
 const daysEl = document.getElementById('days');
 const hoursEl = document.getElementById('hours');
 const minutesEl = document.getElementById('minutes');
 const secondsEl = document.getElementById('seconds');
+const counterEl = document.getElementById('counter');
+
+const audio = document.getElementById('audio');
+const playPauseBtn = document.getElementById('playPauseBtn');
+const muteBtn = document.getElementById('muteBtn');
+const seekBar = document.getElementById('seekBar');
+const currentTimeEl = document.getElementById('currentTime');
+const durationEl = document.getElementById('duration');
 
 function updateTimer() {
   const now = new Date();
@@ -52,7 +45,6 @@ function updateTimer() {
     hoursEl.textContent = '00';
     minutesEl.textContent = '00';
     secondsEl.textContent = '00';
-    clearInterval(timerInterval);
     return;
   }
 
@@ -66,16 +58,9 @@ function updateTimer() {
   minutesEl.textContent = String(minutes).padStart(2, '0');
   secondsEl.textContent = String(seconds).padStart(2, '0');
 }
-updateTimer();
-const timerInterval = setInterval(updateTimer, 1000);
 
-// Audio
-const audio = document.getElementById('audio');
-const playPauseBtn = document.getElementById('playPauseBtn');
-const muteBtn = document.getElementById('muteBtn');
-const seekBar = document.getElementById('seekBar');
-const currentTimeEl = document.getElementById('currentTime');
-const durationEl = document.getElementById('duration');
+setInterval(updateTimer, 1000);
+updateTimer();
 
 function formatTime(seconds) {
   const m = Math.floor(seconds / 60);
@@ -91,6 +76,7 @@ function setAudioDuration() {
     setTimeout(setAudioDuration, 500);
   }
 }
+
 audio.addEventListener('loadedmetadata', setAudioDuration);
 
 audio.addEventListener('timeupdate', () => {
@@ -117,4 +103,13 @@ muteBtn.addEventListener('click', () => {
   muteBtn.innerHTML = audio.muted
     ? '<i class="fas fa-volume-mute"></i>'
     : '<i class="fas fa-volume-up"></i>';
+});
+
+// Firebase View Counter
+counterRef.transaction(current => {
+  return (current || 0) + 1;
+});
+
+counterRef.on('value', snapshot => {
+  counterEl.textContent = snapshot.val();
 });
