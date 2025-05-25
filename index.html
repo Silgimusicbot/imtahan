@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html lang="az">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Blok İmtahanına Qalan Vaxt</title>
-  <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div class="overlay">
@@ -18,32 +17,21 @@
     </div>
 
     <div class="music-player">
-      <img src="song.jpg" alt="Mahnı şəkli" class="song-image" />
+      <img src="song.jpg" alt="Mahnı şəkli" class="song-image">
       <div class="song-info">
-        <h2 id="song-title">Skyfall - Adele</h2>
-        <audio id="audio" preload="metadata">
-          <source src="mahni.mp3" type="audio/mpeg" />
-          Brauzer səsi dəstəkləmir.
-        </audio>
-
-        <div class="controls">
-          <button id="playPauseBtn" class="icon-button"><i class="fas fa-play"></i></button>
-          <button id="muteBtn" class="icon-button"><i class="fas fa-volume-up"></i></button>
-        </div>
-
-        <div class="progress">
-          <span id="currentTime">00:00</span>
-          <input type="range" id="seekBar" value="0" min="0" step="1">
-          <span id="duration">00:00</span>
-        </div>
+        <h2>Skyfall - Adele</h2>
       </div>
+      <audio id="audio" controls>
+        <source src="mahni.mp3" type="audio/mpeg">
+        Brauzer audio dəstəkləmir.
+      </audio>
     </div>
 
     <div class="counter">
-      👁️ : <span id="counter">0</span>
+      👁️ Baxış: <span id="counter">0</span>
     </div>
   </div>
 
-  <script src="script.js"></script>
+  <script type="module" src="script.js"></script>
 </body>
 </html>
