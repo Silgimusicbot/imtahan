@@ -1,95 +1,163 @@
 body {
   margin: 0;
-  font-family: 'Segoe UI', sans-serif;
-  background: url('background.jpg') no-repeat center center fixed;
-  background-size: cover;
+  font-family: sans-serif;
+  background: url('background.jpg') center/cover no-repeat fixed;
   color: white;
-  text-align: center;
-}
-
-.overlay {
-  background-color: rgba(0, 0, 0, 0.6);
-  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   min-height: 100vh;
 }
 
-h1 {
-  font-size: 2em;
-  margin-bottom: 20px;
+.overlay {
+  background: rgba(0, 0, 0, 0.6);
+  padding: 20px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 600px;
+  box-shadow: 0 0 12px rgba(255,255,255,0.2);
 }
 
-.timer {
+.timer-audio-wrapper {
   display: flex;
-  justify-content: center;
+  flex-direction: row;
   flex-wrap: wrap;
-  gap: 10px;
-  margin-bottom: 30px;
+  gap: 20px;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.timer div {
-  background: rgba(255, 255, 255, 0.15);
+.timer h1 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.time-units {
+  display: flex;
+  gap: 10px;
+  font-size: 18px;
+}
+
+.time-units div {
+  background: rgba(255,255,255,0.1);
   padding: 10px;
   border-radius: 8px;
-  width: 60px;
-}
-
-.timer span {
-  font-size: 1.5em;
-  display: block;
+  text-align: center;
+  min-width: 50px;
 }
 
 .music-player {
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 20px;
+  background: rgba(255,255,255,0.1);
   padding: 10px;
-  width: 280px;
-  margin: 0 auto 30px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 330px;
 }
 
 .song-image {
-  width: 100%;
-  border-radius: 15px;
-  margin-bottom: 10px;
+  width: 50px;
+  height: 50px;
+  border-radius: 8px;
+  margin-right: 10px;
+  object-fit: cover;
+}
+
+.song-info {
+  flex-grow: 1;
+}
+
+.song-info h2 {
+  font-size: 16px;
+  margin: 0 0 5px 0;
 }
 
 .audio-controls {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 6px;
-  flex-wrap: wrap;
+  flex-direction: column;
 }
 
-.audio-controls button {
+#seekBar {
+  width: 100%;
+}
+
+.time-display {
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+.controls {
+  margin-top: 6px;
+}
+
+.controls button {
   background: none;
   border: none;
   color: white;
-  font-size: 20px;
+  font-size: 18px;
+  margin-right: 10px;
   cursor: pointer;
 }
 
-.audio-controls input[type="range"] {
-  flex: 1;
-  appearance: none;
-  height: 3px;
-  background: white;
-  border-radius: 2px;
-  outline: none;
-}
-
-.audio-controls span {
-  font-size: 13px;
-  min-width: 35px;
-}
-
 .counter {
-  font-size: 1.2em;
-  margin-top: 20px;
+  margin-top: 15px;
+  text-align: center;
+  font-size: 18px;
 }
 
-/* Mobil uyğunluq */
+/* Fade-in animations */
+.fade-in {
+  opacity: 0;
+  animation: fadeIn 1.5s ease forwards;
+}
+
+.fade-in:nth-child(1) { animation-delay: 0.3s; }
+.fade-in:nth-child(2) { animation-delay: 0.6s; }
+.fade-in:nth-child(3) { animation-delay: 1s; }
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+/* Responsive */
 @media (max-width: 480px) {
-  .timer {
-    justify-content: space-around;
+  .timer-audio-wrapper {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .music-player {
+    flex-direction: row;
+    flex-wrap: wrap;
+    max-width: 330px;
+  }
+
+  .song-image {
+    width: 50px;
+    height: 50px;
+  }
+
+  .song-info h2 {
+    font-size: 14px;
+  }
+
+  .controls button {
+    font-size: 16px;
+  }
+
+  .time-units {
+    gap: 6px;
+    font-size: 14px;
+  }
+
+  .time-units div {
+    padding: 6px;
+  }
+
+  .counter {
+    font-size: 16px;
   }
 }
