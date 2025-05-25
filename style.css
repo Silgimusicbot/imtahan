@@ -21,32 +21,34 @@ h1 {
 .timer {
   display: flex;
   justify-content: center;
-  gap: 15px;
+  flex-wrap: wrap;
+  gap: 10px;
   margin-bottom: 30px;
 }
 
 .timer div {
-  background: rgba(255, 255, 255, 0.1);
-  padding: 10px 15px;
-  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.15);
+  padding: 10px;
+  border-radius: 8px;
+  width: 60px;
 }
 
 .timer span {
-  font-size: 2em;
+  font-size: 1.5em;
   display: block;
 }
 
 .music-player {
   background: rgba(255, 255, 255, 0.1);
-  border-radius: 15px;
-  padding: 15px;
-  max-width: 350px;
+  border-radius: 20px;
+  padding: 10px;
+  width: 280px;
   margin: 0 auto 30px;
 }
 
 .song-image {
   width: 100%;
-  border-radius: 10px;
+  border-radius: 15px;
   margin-bottom: 10px;
 }
 
@@ -54,7 +56,7 @@ h1 {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 5px;
+  gap: 6px;
   flex-wrap: wrap;
 }
 
@@ -69,15 +71,15 @@ h1 {
 .audio-controls input[type="range"] {
   flex: 1;
   appearance: none;
-  height: 4px;
+  height: 3px;
   background: white;
   border-radius: 2px;
   outline: none;
 }
 
 .audio-controls span {
-  font-size: 14px;
-  min-width: 40px;
+  font-size: 13px;
+  min-width: 35px;
 }
 
 .counter {
@@ -88,6 +90,6 @@ h1 {
 /* Mobil uyğunluq */
 @media (max-width: 480px) {
   .timer {
-    flex-direction: column;
+    justify-content: space-around;
   }
 }
