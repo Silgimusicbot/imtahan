@@ -44,15 +44,21 @@ function formatTime(seconds) {
   return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
 }
 
+function setAudioDuration() {
+  if (audio.duration && !isNaN(audio.duration)) {
+    seekBar.max = Math.floor(audio.duration);
+    durationEl.textContent = formatTime(audio.duration);
+  } else {
+    setTimeout(setAudioDuration, 500); // Retry after delay
+  }
+}
+
 function incrementViews() {
   views++;
   counterEl.textContent = views;
 }
 
-audio.addEventListener('loadedmetadata', () => {
-  seekBar.max = Math.floor(audio.duration);
-  durationEl.textContent = formatTime(audio.duration);
-});
+audio.addEventListener('loadedmetadata', setAudioDuration);
 
 audio.addEventListener('timeupdate', () => {
   seekBar.value = Math.floor(audio.currentTime);
@@ -79,6 +85,7 @@ muteBtn.addEventListener('click', () => {
     ? '<i class="fas fa-volume-mute"></i>'
     : '<i class="fas fa-volume-up"></i>';
 });
+
 
 updateTimer();
 const timerInterval = setInterval(updateTimer, 1000);
