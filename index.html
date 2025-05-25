@@ -2,52 +2,47 @@
 <html lang="az">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Blok İmtahanına Qalan Vaxt</title>
   <link rel="stylesheet" href="style.css" />
-  <!-- Font Awesome ikonlar üçün -->
   <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
 </head>
 <body>
   <div class="container">
-
-    <div class="timer animated fadeIn">
-      <h1>📖 Blok İmtahanına<br>Qalan Vaxt</h1>
-      <div class="time-values">
-        <div><span id="days">00</span><label>gün</label></div>
-        <div><span id="hours">00</span><label>saat</label></div>
-        <div><span id="minutes">00</span><label>dəqiqə</label></div>
-        <div><span id="seconds">00</span><label>saniyə</label></div>
-      </div>
+    <h1 class="fade-in">📖 Blok İmtahanına Qalan Vaxt</h1>
+    <div class="timer fade-in">
+      <div><span id="days">00</span><label>gün</label></div>
+      <div><span id="hours">00</span><label>saat</label></div>
+      <div><span id="minutes">00</span><label>dəqiqə</label></div>
+      <div><span id="seconds">00</span><label>saniyə</label></div>
     </div>
 
-    <div class="audio-player animated fadeIn">
+    <div class="music-player fade-in">
       <img src="song.jpg" alt="Mahnı şəkli" class="song-image" />
       <div class="song-info">
         <h2>Mahnının Adı</h2>
+        <div class="time-info">
+          <span id="currentTime">00:00</span>
+          <input type="range" id="seekBar" value="0" />
+          <span id="duration">00:00</span>
+        </div>
+        <div class="controls">
+          <button id="playPauseBtn"><i class="fas fa-play"></i></button>
+          <button id="muteBtn"><i class="fas fa-volume-up"></i></button>
+        </div>
+        <audio id="audio">
+          <source src="mahni.mp3" type="audio/mpeg" />
+          Sənin brauzerin audio pleyeri dəstəkləmir.
+        </audio>
       </div>
-      <input type="range" id="seekBar" min="0" max="100" value="0" />
-      <div class="time-status">
-        <span id="currentTime">00:00</span> / <span id="duration">00:00</span>
-      </div>
-      <div class="controls">
-        <button id="playPauseBtn" aria-label="Play"><i class="fas fa-play"></i></button>
-        <button id="muteBtn" aria-label="Mute"><i class="fas fa-volume-up"></i></button>
-      </div>
-      <audio id="audio" preload="metadata">
-        <source src="mahni.mp3" type="audio/mpeg" />
-        Sənin brauzerin audio pleyeri dəstəkləmir.
-      </audio>
     </div>
 
-    <div class="views-counter animated fadeIn">
+    <div class="counter fade-in">
       👁️ Baxış sayı: <span id="counter">0</span>
     </div>
   </div>
-
-  <!-- Firebase SDK -->
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 
   <script src="script.js"></script>
 </body>
