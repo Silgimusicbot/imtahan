@@ -3,7 +3,6 @@ const daysEl = document.getElementById('days');
 const hoursEl = document.getElementById('hours');
 const minutesEl = document.getElementById('minutes');
 const secondsEl = document.getElementById('seconds');
-const creditEl = document.getElementById('creditText');
 
 const audio = document.getElementById('audio');
 const playPauseBtn = document.getElementById('playPauseBtn');
@@ -73,49 +72,54 @@ muteBtn.addEventListener('click', () => {
     : '<i class="fas fa-volume-up"></i>';
 });
 
-// Animasiya funksiyası
-function animateElements() {
-  const elements = [
-    document.querySelector('.credit'),
-    document.querySelector('h1'),
-    document.querySelector('.timer'),
-    document.querySelector('.music-player')
-  ];
-
-  elements.forEach((el, i) => {
-    setTimeout(() => {
-      el.classList.add('fade-in');
-    }, i * 300);
-  });
-}
-
-function typeTextEffect(el, text, speed = 60) {
-  let display = '';
-  let index = 0;
-  const interval = setInterval(() => {
-    display = text.substring(0, index);
-    el.textContent = display + getRandomLetters(text.length - index);
-    index++;
-    if (index > text.length) {
-      clearInterval(interval);
-      el.textContent = text;
-    }
-  }, speed);
-}
-
-function getRandomLetters(count) {
-  const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  let str = '';
-  for (let i = 0; i < count; i++) {
-    str += letters.charAt(Math.floor(Math.random() * letters.length));
-  }
-  return str;
-}
-
 updateTimer();
 const timerInterval = setInterval(updateTimer, 1000);
 
-window.addEventListener('DOMContentLoaded', () => {
-  typeTextEffect(creditEl, 'Hüseyn Məmmədov tərəfindən hazırlanıb');
-  animateElements();
+const canvas = document.getElementById("visualizerCanvas");
+const ctx = canvas.getContext("2d");
+
+const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+const source = audioCtx.createMediaElementSource(audio);
+const analyser = audioCtx.createAnalyser();
+source.connect(analyser);
+analyser.connect(audioCtx.destination);
+analyser.fftSize = 64;
+
+const bufferLength = analyser.frequencyBinCount;
+const dataArray = new Uint8Array(bufferLength);
+
+function drawVisualizer() {
+  requestAnimationFrame(drawVisualizer);
+  analyser.getByteFrequencyData(dataArray);
+
+  canvas.width = canvas.offsetWidth;
+  canvas.height = canvas.offsetHeight;
+
+  const barWidth = (canvas.width / bufferLength);
+  let barHeight;
+  let x = 0;
+
+  for (let i = 0; i < bufferLength; i++) {
+    barHeight = dataArray[i];
+    ctx.fillStyle = `rgba(30, 215, 96, 0.8)`; // Spotify rəngi
+    ctx.fillRect(x, canvas.height - barHeight, barWidth - 2, barHeight);
+    x += barWidth;
+  }
+}
+
+playPauseBtn.addEventListener("click", () => {
+  if (audioCtx.state === "suspended") {
+    audioCtx.resume();
+  }
+  drawVisualizer();
 });
+
+const quotes = [
+  "Zəhmət çək, nəticəsi gözəl olacaq!",
+  "İmtahanda bacaracaqsan!",
+  "Bu gün çalış, sabah rahat ol!",
+  "Ən yaxşısı hələ qarşıdadır!",
+  "Uğurlar səni gözləyir!"
+];
+document.getElementById("quote").textContent =
+  quotes[Math.floor(Math.random() * quotes.length)];
