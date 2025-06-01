@@ -113,7 +113,31 @@ playPauseBtn.addEventListener("click", () => {
   }
   drawVisualizer();
 });
+function animateRandomLetters(targetText, elementId, speed = 50) {
+  const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZƏÖÜĞÇŞabcdefghijklmnopqrstuvwxyzəöüğçş ";
+  let displayText = "";
+  let currentLength = 0;
+  const element = document.getElementById(elementId);
 
+  const interval = setInterval(() => {
+    if (currentLength < targetText.length) {
+      displayText = targetText
+        .split("")
+        .map((char, i) => {
+          if (i < currentLength) return targetText[i];
+          return letters[Math.floor(Math.random() * letters.length)];
+        })
+        .join("");
+      element.textContent = displayText;
+      currentLength++;
+    } else {
+      element.textContent = targetText;
+      clearInterval(interval);
+    }
+  }, speed);
+}
+
+animateRandomLetters("Hüseyn Məmmədov tərəfindən hazırlanıb.", "byAuthor", 70);
 const quotes = [
   "Zəhmət çək, nəticəsi gözəl olacaq!",
   "İmtahanda bacaracaqsan!",
