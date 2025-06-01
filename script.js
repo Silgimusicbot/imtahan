@@ -1,15 +1,8 @@
-const targetDate = new Date('2025-07-13T10:00:00');
+const targetDate = new Date('2025-06-01T09:30:00');
 const daysEl = document.getElementById('days');
 const hoursEl = document.getElementById('hours');
 const minutesEl = document.getElementById('minutes');
 const secondsEl = document.getElementById('seconds');
-
-const audio = document.getElementById('audio');
-const playPauseBtn = document.getElementById('playPauseBtn');
-const muteBtn = document.getElementById('muteBtn');
-const seekBar = document.getElementById('seekBar');
-const currentTimeEl = document.getElementById('currentTime');
-const durationEl = document.getElementById('duration');
 
 function updateTimer() {
   const now = new Date();
@@ -35,11 +28,12 @@ function updateTimer() {
   secondsEl.textContent = String(seconds).padStart(2, '0');
 }
 
-function formatTime(seconds) {
-  const m = Math.floor(seconds / 60);
-  const s = Math.floor(seconds % 60);
-  return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
-}
+const audio = document.getElementById('audio');
+const playPauseBtn = document.getElementById('playPauseBtn');
+const muteBtn = document.getElementById('muteBtn');
+const seekBar = document.getElementById('seekBar');
+const currentTimeEl = document.getElementById('currentTime');
+const durationEl = document.getElementById('duration');
 
 audio.addEventListener('loadedmetadata', () => {
   seekBar.max = Math.floor(audio.duration);
@@ -72,78 +66,74 @@ muteBtn.addEventListener('click', () => {
     : '<i class="fas fa-volume-up"></i>';
 });
 
+function formatTime(seconds) {
+  const m = Math.floor(seconds / 60);
+  const s = Math.floor(seconds % 60);
+  return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+}
+
 updateTimer();
 const timerInterval = setInterval(updateTimer, 1000);
 
-const canvas = document.getElementById("visualizerCanvas");
-const ctx = canvas.getContext("2d");
+// Random letter typing animation
+const hackerText = document.getElementById('hackerText');
+const finalText = "Hüseyn Məmmədov tərəfindən hazırlanıb";
+let iteration = 0;
+let interval = setInterval(() => {
+  hackerText.innerText = finalText
+    .split("")
+    .map((char, idx) => {
+      if (idx < iteration) return finalText[idx];
+      return String.fromCharCode(65 + Math.random() * 26);
+    })
+    .join("");
 
-const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-const source = audioCtx.createMediaElementSource(audio);
-const analyser = audioCtx.createAnalyser();
-source.connect(analyser);
-analyser.connect(audioCtx.destination);
-analyser.fftSize = 64;
+  if (iteration >= finalText.length) clearInterval(interval);
+  iteration += 1 / 1.5;
+}, 50);
 
-const bufferLength = analyser.frequencyBinCount;
-const dataArray = new Uint8Array(bufferLength);
-
-function drawVisualizer() {
-  requestAnimationFrame(drawVisualizer);
-  analyser.getByteFrequencyData(dataArray);
-
-  canvas.width = canvas.offsetWidth;
-  canvas.height = canvas.offsetHeight;
-
-  const barWidth = (canvas.width / bufferLength);
-  let barHeight;
-  let x = 0;
-
-  for (let i = 0; i < bufferLength; i++) {
-    barHeight = dataArray[i];
-    ctx.fillStyle = `rgba(30, 215, 96, 0.8)`; // Spotify rəngi
-    ctx.fillRect(x, canvas.height - barHeight, barWidth - 2, barHeight);
-    x += barWidth;
-  }
-}
-
-playPauseBtn.addEventListener("click", () => {
-  if (audioCtx.state === "suspended") {
-    audioCtx.resume();
-  }
-  drawVisualizer();
-});
-function animateRandomLetters(targetText, elementId, speed = 50) {
-  const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZƏÖÜĞÇŞabcdefghijklmnopqrstuvwxyzəöüğçş ";
-  let displayText = "";
-  let currentLength = 0;
-  const element = document.getElementById(elementId);
-
-  const interval = setInterval(() => {
-    if (currentLength < targetText.length) {
-      displayText = targetText
-        .split("")
-        .map((char, i) => {
-          if (i < currentLength) return targetText[i];
-          return letters[Math.floor(Math.random() * letters.length)];
-        })
-        .join("");
-      element.textContent = displayText;
-      currentLength++;
-    } else {
-      element.textContent = targetText;
-      clearInterval(interval);
-    }
-  }, speed);
-}
-
-animateRandomLetters("Hüseyn Məmmədov tərəfindən hazırlanıb.", "byAuthor", 70);
+// Motivasiya sitatları
 const quotes = [
-  "Zəhmət çək, nəticəsi gözəl olacaq!",
-  "İmtahanda bacaracaqsan!",
-  "Bu gün çalış, sabah rahat ol!",
-  "Ən yaxşısı hələ qarşıdadır!",
-  "Uğurlar səni gözləyir!"
+  "“Uğur əzmli olanlara məxsusdur.”",
+  "“Gələcəyin açarı bu gündə gizlidir.”",
+  "“Ən uzun yol belə bir addımla başlayır.”",
+  "“Mübarizə aparmadan qələbə olmaz.”"
 ];
-document.getElementById("quote").textContent =
-  quotes[Math.floor(Math.random() * quotes.length)];
+setInterval(() => {
+  const q = quotes[Math.floor(Math.random() * quotes.length)];
+  document.getElementById('quote-text').textContent = q;
+}, 8000);
+
+// Music visualizer
+const canvas = document.getElementById('visualizer');
+const ctx = canvas.getContext('2d');
+let audioCtx, analyser, source, dataArray;
+
+function setupVisualizer() {
+  audioCtx = new AudioContext();
+  analyser = audioCtx.createAnalyser();
+  source = audioCtx.createMediaElementSource(audio);
+  source.connect(analyser);
+  analyser.connect(audioCtx.destination);
+  analyser.fftSize = 64;
+  dataArray = new Uint8Array(analyser.frequencyBinCount);
+  draw();
+}
+
+function draw() {
+  requestAnimationFrame(draw);
+  analyser.getByteFrequencyData(dataArray);
+  canvas.width = canvas.clientWidth;
+  canvas.height = canvas.clientHeight;
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  const barWidth = canvas.width / dataArray.length;
+  for (let i = 0; i < dataArray.length; i++) {
+    const barHeight = dataArray[i];
+    ctx.fillStyle = '#1db954';
+    ctx.fillRect(i * barWidth, canvas.height - barHeight / 2, barWidth - 1, barHeight / 2);
+  }
+}
+
+audio.addEventListener('play', () => {
+  if (!audioCtx) setupVisualizer();
+});
