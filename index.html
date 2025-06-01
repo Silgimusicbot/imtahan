@@ -2,16 +2,15 @@
 <html lang="az">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>2-ci Blok İmtahanına Qalan Vaxt</title>
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 </head>
 <body>
   <div class="overlay">
-    <h1 class="main-title">📖 Blok İmtahanının 2. mərhələsinə<br>Qalan Vaxt</h1>
-
-    <div class="creator-message" id="hackerText"></div>
+    <p class="credit" id="creditText"></p>
+    <h1>📖 Blok İmtahanının 2. mərhələsinə<br>Qalan Vaxt</h1>
 
     <div class="timer">
       <div><span id="days">00</span><label>gün</label></div>
@@ -20,19 +19,14 @@
       <div><span id="seconds">00</span><label>saniyə</label></div>
     </div>
 
-    <div id="quote-box">
-      <p id="quote-text">"İrəliləmək üçün hər gün bir addım yetər."</p>
-    </div>
-
     <div class="music-player">
       <img src="song.jpg" alt="Mahnı şəkli" class="song-image" />
       <div class="song-info">
         <h2 id="song-title">Mübarizənin sonu😉</h2>
         <audio id="audio" preload="metadata">
           <source src="mahni.mp3" type="audio/mpeg" />
+          Brauzer səsi dəstəkləmir.
         </audio>
-
-        <canvas id="visualizer"></canvas>
 
         <div class="controls">
           <button id="playPauseBtn" class="icon-button"><i class="fas fa-play"></i></button>
