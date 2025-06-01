@@ -3,15 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>2-ci Blok İmtahanına Qalan Vaxt</title>
+  <title>Blok İmtahanına Qalan Vaxt</title>
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 </head>
 <body>
   <div class="overlay">
-    <p class="credit" id="creditText"></p>
-    <h1>📖 Blok İmtahanının 2.cəhdinə<br>Qalan Vaxt</h1>
-
+    <h1>📖 Blok İmtahanına<br>Qalan Vaxt</h1>
     <div class="timer">
       <div><span id="days">00</span><label>gün</label></div>
       <div><span id="hours">00</span><label>saat</label></div>
@@ -40,6 +38,15 @@
         </div>
       </div>
     </div>
+
+    
+    <div class="visualizer">
+      <canvas id="visualizerCanvas"></canvas>
+    </div>
+
+    
+    <p class="quote" id="quote"></p>
+
   </div>
 
   <script src="script.js"></script>
