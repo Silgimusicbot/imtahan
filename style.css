@@ -88,6 +88,15 @@ h1 {
   gap: 10px;
   margin-bottom: 8px;
 }
+.by-author {
+  font-family: monospace;
+  font-size: 1rem;
+  color: #39ff14; 
+  text-shadow: 0 0 5px #39ff14, 0 0 10px #39ff14;
+  margin-top: 20px;
+  letter-spacing: 1px;
+  min-height: 1.5em; 
+}
 .icon-button {
   background: none;
   border: none;
